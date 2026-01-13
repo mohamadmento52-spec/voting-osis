@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/927/927250.png">
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/927/927250.png">
-
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/927/927250.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/927/927250.png">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +14,7 @@
     <style>
         :root { --primary: #4f46e5; --primary-light: #eef2ff; --text-dark: #1e293b; --text-gray: #64748b; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; color: var(--text-dark); }
-        .container { background: #fff; width: 100%; max-width: 420px; padding: 30px; border-radius: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .container { background: #fff; width: 100%; max-width: 440px; padding: 30px; border-radius: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .header { text-align: center; margin-bottom: 25px; }
         .header h1 { color: var(--primary); font-size: 28px; font-weight: 800; margin: 0; }
         .header p { color: var(--text-gray); font-size: 14px; margin-top: 6px; }
@@ -25,13 +24,18 @@
         .input-group input { width: 100%; padding: 16px; border: 2px solid #f1f5f9; border-radius: 16px; box-sizing: border-box; font-size: 16px; outline: none; text-align: center; font-weight: 600; transition: 0.3s; background: #f8fafc; }
         .input-group input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px var(--primary-light); }
         
-        .candidate-card { border: 2px solid #f1f5f9; border-radius: 18px; padding: 18px; margin-bottom: 14px; display: flex; align-items: center; cursor: pointer; transition: 0.3s; position: relative; }
+        .candidate-card { border: 2px solid #f1f5f9; border-radius: 20px; padding: 12px; margin-bottom: 14px; display: flex; align-items: center; cursor: pointer; transition: 0.3s; position: relative; }
         .candidate-card:hover { border-color: var(--primary); background: var(--primary-light); }
-        .number-circle { width: 36px; height: 36px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 15px; flex-shrink: 0; }
-        .candidate-names { font-weight: 700; font-size: 15px; color: var(--text-dark); }
-        .candidate-role { font-size: 11px; color: var(--text-gray); text-transform: uppercase; font-weight: 600; }
+        
+        .candidate-photo { width: 65px; height: 65px; border-radius: 14px; object-fit: cover; margin-right: 15px; background: #f1f5f9; border: 1px solid #eee; }
+        
+        .number-circle { width: 30px; height: 30px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; position: absolute; top: -10px; left: -10px; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        .candidate-names { font-weight: 700; font-size: 15px; color: var(--text-dark); line-height: 1.2; }
+        .candidate-role { font-size: 11px; color: var(--text-gray); text-transform: uppercase; font-weight: 600; margin-top: 4px; }
+        
         .candidate-card input { display: none; }
-        .candidate-card:has(input:checked) { background: var(--primary-light); border-color: var(--primary); border-width: 2px; }
+        .candidate-card:has(input:checked) { background: var(--primary-light); border-color: var(--primary); }
 
         button { width: 100%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 16px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 15px; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); transition: 0.3s; }
         button:hover { filter: brightness(1.1); transform: translateY(-2px); }
@@ -40,38 +44,44 @@
     </style>
 </head>
 <body>
+
 <div class="container">
     <div class="header">
         <h1>E-Voting OSIS</h1>
-        <p>Silakan berikan suara Anda</p>
+        <p>SMPN 4 Monano - Periode 2026</p>
     </div>
 
     <form id="osisForm">
         <div class="input-group">
             <label>Verifikasi Kode Akses</label>
-            <input type="text" id="voterID" placeholder="ID Siswa / NIP Guru" required>
+            <input type="text" id="voterID" placeholder="Masukkan ID atau NIP" required autocomplete="off">
         </div>
 
         <div id="selectionArea">
             <label class="candidate-card">
                 <input type="radio" name="pilihan" value="1" required>
                 <div class="number-circle">01</div>
+                <img src="paslon1.png" alt="Foto Paslon 01" class="candidate-photo">
                 <div class="info">
                     <div class="candidate-names">Ilyas Igirisa & Dion Lolo</div>
                     <div class="candidate-role">Calon Ketua & Wakil</div>
                 </div>
             </label>
+
             <label class="candidate-card">
                 <input type="radio" name="pilihan" value="2">
                 <div class="number-circle">02</div>
+                <img src="paslon2.png" alt="Foto Paslon 02" class="candidate-photo">
                 <div class="info">
                     <div class="candidate-names">Alviansyah A. Uge & Fadliyanto Tomayahu</div>
                     <div class="candidate-role">Calon Ketua & Wakil</div>
                 </div>
             </label>
+
             <label class="candidate-card">
                 <input type="radio" name="pilihan" value="3">
                 <div class="number-circle">03</div>
+                <img src="paslon3.png" alt="Foto Paslon 03" class="candidate-photo">
                 <div class="info">
                     <div class="candidate-names">Febiola H. Duyo & Tri Sutrisno</div>
                     <div class="candidate-role">Calon Ketua & Wakil</div>
@@ -81,28 +91,33 @@
 
         <button type="submit" id="submitBtn">Kirim Suara Sekarang</button>
     </form>
-    <div class="footer-info">Sistem Digital SMPN 4 Monano- Realtime Database</div>
+    <div class="footer-info">Sistem Digital SMPN 4 Monano - Realtime Database</div>
 </div>
 
 <script>
-    // GANTI URL DI BAWAH INI DENGAN URL DARI GOOGLE APPS SCRIPT ANDA
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyngXTAZyyfsbN52APIY0UhoXvF2NSHpYoDa-Eb8Vo_2bZ-1TWlgF2SjTxGbF5zUIll/exec";
 
-    const dpt = ["566", "542", "569", "591", "508", "544", "511", "545", "590", "512", "513", "546", "570", "589", "547", "567", "571", "572", "514", "573", "588", "548", "574", "549", "550", "575", "515", "552", "576", "577", "517", "578", "519", "586", "520", "521", "522", "553", "554", "579", "525", "526", "528", "555", "557", "580", "529", "587", "581", "582", "530", "558", "532", "583", "560", "561", "562", "534", "584", "535", "563", "536", "564", "537", "565", "568", "538", "585", "539", "198107122010011010", "198903202017082004", "198503052009012002", "199402052022211005", "198405242019031004", "198110262010011005", "197912292023212004", "199210022019032019", "198105232010012003", "199009082015032003"];
+    // Daftar DPT (Data Pemilih Tetap) - Update: Ditambahkan 111 & 112
+    const dpt = [
+        "111", "112", // Pemilih Khusus (Muhaimin H. Taruwa & Pak Hendro)
+        "566", "542", "569", "591", "508", "544", "511", "545", "590", "512", "513", "546", "570", "589", "547", "567", "571", "572", "514", "573", "588", "548", "574", "549", "550", "575", "515", "552", "576", "577", "517", "578", "519", "586", "520", "521", "522", "553", "554", "579", "525", "526", "528", "555", "557", "580", "529", "587", "581", "582", "530", "558", "532", "583", "560", "561", "562", "534", "584", "535", "563", "536", "564", "537", "565", "568", "538", "585", "539", 
+        "198107122010011010", "198903202017082004", "198503052009012002", "199402052022211005", "198405242019031004", "198110262010011005", "197912292023212004", "199210022019032019", "198105232010012003", "199009082015032003"
+    ];
 
     document.getElementById("osisForm").addEventListener("submit", async function(e) {
         e.preventDefault();
         const id = document.getElementById("voterID").value.trim();
-        const pil = document.querySelector('input[name="pilihan"]:checked').value;
+        const selection = document.querySelector('input[name="pilihan"]:checked');
 
+        if (!selection) return alert("Silakan pilih salah satu calon!");
         if (!dpt.includes(id)) return alert("❌ ID Tidak Terdaftar!");
         
+        const pil = selection.value;
         const btn = document.getElementById("submitBtn");
         btn.disabled = true;
         btn.innerText = "Memproses...";
 
         try {
-            // Cek apakah ID sudah pernah memilih di Google Sheets
             const res = await fetch(SCRIPT_URL);
             const data = await res.json();
             
@@ -112,7 +127,7 @@
                 return;
             }
 
-            if (confirm("Kirim suara Anda sekarang?")) {
+            if (confirm("Kirim suara Anda sekarang? Pilihan tidak dapat diubah.")) {
                 await fetch(SCRIPT_URL, { 
                     method: "POST", 
                     body: JSON.stringify({ id: id, pilihan: pil }) 
@@ -130,5 +145,6 @@
         }
     });
 </script>
+
 </body>
 </html>
