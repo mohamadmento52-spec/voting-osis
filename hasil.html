@@ -3,79 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitoring Hasil - Quick Count</title>
+    <title>Monitoring Hasil - Quick Count SMPN 4 Monano</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #4f46e5; --bg: #f1f5f9; --danger: #ef4444; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .container { background: #fff; width: 90%; max-width: 500px; padding: 40px; border-radius: 24px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); text-align: center; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
+        .container { 
+            background: #fff; 
+            width: 95%; 
+            max-width: 550px; 
+            padding: 30px; 
+            border-radius: 28px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); 
+            text-align: center; 
+        }
         
-        .chart { display: flex; justify-content: space-around; align-items: flex-end; height: 300px; margin: 50px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
-        .bar-wrap { width: 28%; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+        /* Layout Grafik */
+        .chart { 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: flex-end; 
+            height: 300px; 
+            margin: 60px 0 30px 0; 
+            border-bottom: 3px solid #f1f5f9; 
+            padding-bottom: 10px; 
+        }
+        .bar-wrap { 
+            width: 30%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            height: 100%; 
+            justify-content: flex-end; 
+        }
         
+        /* Animasi Batang */
         .bar { 
-            width: 80%; 
+            width: 70%; 
             background: linear-gradient(to top, #4f46e5, #818cf8); 
-            border-radius: 8px 8px 0 0; 
+            border-radius: 12px 12px 4px 4px; 
             transition: height 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             min-height: 5px; 
             position: relative; 
         }
 
-        .val { position: absolute; top: -35px; width: 100%; font-size: 14px; font-weight: 700; color: var(--primary); }
-        .label-paslon { margin-top: 15px; font-weight: 700; color: #334155; }
-        .total-suara { background: #f5f3ff; padding: 15px; border-radius: 12px; font-size: 20px; font-weight: 800; color: var(--primary); margin-top: 20px; }
-        .status-badge { font-size: 11px; color: #10b981; margin-top: 10px; font-weight: 600; text-transform: uppercase; }
-
-        /* Tombol Hapus */
-        .btn-delete {
-            margin-top: 25px;
-            background: none;
-            border: 2px solid #e2e8f0;
-            color: #94a3b8;
-            padding: 8px 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
+        /* Nilai Angka di Atas Batang */
+        .val { 
+            position: absolute; 
+            top: -35px; 
+            width: 100%; 
+            font-size: 13px; 
+            font-weight: 800; 
+            color: var(--primary); 
+            white-space: nowrap; 
         }
-        .btn-delete:hover {
-            border-color: var(--danger);
-            color: var(--danger);
-            background: #fef2f2;
+        
+        /* Styling Foto Paslon Lokal */
+        .bar-photo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-top: 15px;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #f1f5f9; /* Warna cadangan jika foto tidak ada */
+        }
+
+        .label-paslon { 
+            margin-top: 8px; 
+            font-weight: 800; 
+            color: #334155; 
+            font-size: 16px; 
+        }
+
+        .total-suara { 
+            background: #eef2ff; 
+            padding: 15px; 
+            border-radius: 16px; 
+            font-size: 22px; 
+            font-weight: 800; 
+            color: var(--primary); 
+            margin-top: 25px; 
+            border: 1px solid #e0e7ff; 
+        }
+
+        .status-badge { 
+            font-size: 11px; 
+            color: #10b981; 
+            margin-top: 15px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+
+        .btn-delete {
+            margin-top: 30px;
+            background: none;
+            border: 2px solid #f1f5f9;
+            color: #94a3b8;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+        .btn-delete:hover { 
+            border-color: var(--danger); 
+            color: var(--danger); 
+            background: #fef2f2; 
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="margin:0; color: #1e293b;">PEROLEHAN SUARA PEMILIHAN KETUA & WAKIL KETUA OSIS SMPN 4 MONANO </h2>
-    <p style="font-size: 14px; color: #64748b; margin-top: 5px;">Masa Bakti 2026/2027</p>
+    <h2 style="margin:0; color: #1e293b; line-height: 1.2;">HASIL PERHITUNGAN SUARA PILKETOS</h2>
+    <p style="font-size: 14px; color: #64748b; margin-top: 8px;">SMPN 4 MONANO - 2026/2027</p>
 
     <div class="chart">
         <div class="bar-wrap">
             <div id="bar1" class="bar" style="height: 0%;">
                 <div class="val" id="val1">0</div>
             </div>
-            <div class="label-paslon">01 (Ilyas & Dion) </div>
+            <img src="paslon1.png" alt="01" class="bar-photo">
+            <div class="label-paslon">01</div>
         </div>
+
         <div class="bar-wrap">
             <div id="bar2" class="bar" style="height: 0%;">
                 <div class="val" id="val2">0</div>
             </div>
-            <div class="label-paslon">02 (Alvin & Fadli)</div>
+            <img src="paslon2.png" alt="02" class="bar-photo">
+            <div class="label-paslon">02</div>
         </div>
+
         <div class="bar-wrap">
             <div id="bar3" class="bar" style="height: 0%;">
                 <div class="val" id="val3">0</div>
             </div>
-            <div class="label-paslon">03 (Febiola & Tri)</div>
+            <img src="paslon3.png" alt="03" class="bar-photo">
+            <div class="label-paslon">03</div>
         </div>
     </div>
 
     <div id="total" class="total-suara">Total: 0 Suara</div>
-    <div id="statusUpdate" class="status-badge">Menghubungkan...</div>
+    <div id="statusUpdate" class="status-badge">Menghubungkan ke Server...</div>
 
     <button class="btn-delete" onclick="hapusData()">🗑️ Kosongkan Database</button>
 </div>
@@ -104,25 +186,27 @@
 
             [1, 2, 3].forEach(i => {
                 const persen = totalValid > 0 ? (counts[i] / totalValid * 100).toFixed(1) : 0;
-                document.getElementById(`bar${i}`).style.height = persen + "%";
+                // Skala tinggi agar visual tetap proporsional (max 85% dari container chart)
+                const visualHeight = totalValid > 0 ? (counts[i] / Math.max(...Object.values(counts)) * 85) : 0;
+                
+                document.getElementById(`bar${i}`).style.height = (visualHeight + 5) + "%";
                 document.getElementById(`val${i}`).innerText = `${counts[i]} (${persen}%)`;
             });
 
             document.getElementById("total").innerText = `Total: ${totalValid} Suara`;
-            statusEl.innerText = "● Terhubung - Terupdate: " + new Date().toLocaleTimeString();
+            statusEl.innerText = "● LIVE - Terakhir Update: " + new Date().toLocaleTimeString();
             statusEl.style.color = "#10b981";
 
         } catch (error) {
-            statusEl.innerText = "✖ Koneksi Terputus";
+            statusEl.innerText = "✖ Koneksi Terputus - Menyambung kembali...";
             statusEl.style.color = "#ef4444";
         }
     }
 
     async function hapusData() {
-        const pw = prompt("Masukkan Password Konfirmasi:");
-        // Ganti 'admin123' dengan password yang Anda inginkan
+        const pw = prompt("Konfirmasi Admin - Masukkan Password:");
         if (pw === 'admin123') {
-            if (confirm("Apakah Anda yakin ingin MENGHAPUS SEMUA DATA suara? Tindakan ini tidak bisa dibatalkan.")) {
+            if (confirm("Hapus seluruh data suara secara permanen?")) {
                 try {
                     const btn = document.querySelector('.btn-delete');
                     btn.innerText = "Menghapus...";
@@ -133,25 +217,25 @@
                         body: JSON.stringify({ action: "clear" })
                     });
 
-                    alert("Data berhasil dikosongkan.");
+                    alert("Data berhasil dibersihkan!");
                     muatData();
                 } catch (e) {
-                    alert("Gagal menghapus data.");
+                    alert("Gagal menghubungi server.");
                 } finally {
                     const btn = document.querySelector('.btn-delete');
                     btn.innerText = "🗑️ Kosongkan Database";
                     btn.disabled = false;
                 }
             }
-        } else {
+        } else if (pw !== null) {
             alert("Password Salah!");
         }
     }
 
+    // Interval update otomatis setiap 5 detik
     setInterval(muatData, 5000);
+    // Inisialisasi pertama kali
     muatData();
 </script>
 </body>
-
 </html>
-
